@@ -1,0 +1,7 @@
+<mat-toolbar color="primary">
+  <span routerLink="/" >LStudio</span>
+  <span class="spacer"></span>
+  <button mat-mini-fab color="warn" (click)="logout()" *ngIf="logado" >
+    <mat-icon aria-label="Botão de Logout">logout</mat-icon>
+  </button>
+</mat-toolbar>

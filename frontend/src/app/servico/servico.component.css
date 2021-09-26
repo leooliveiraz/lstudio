@@ -1,0 +1,27 @@
+.tabela {
+  width: 100%;
+}
+.container{
+  margin-top: 1em;
+}
+.linha-funcao{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+form{
+  width: 100%;
+}
+
+.direita{
+  width: 100%;
+  text-align: right;
+}
+.input{
+  width: 100%;
+}
+.botao{
+  margin-left: 1em;
+}

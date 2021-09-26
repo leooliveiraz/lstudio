@@ -1,0 +1,144 @@
+<mat-card>
+  <mat-card-title>
+    Agendamentos
+  </mat-card-title>
+  <mat-card-subtitle>
+    Gerenciamento de agendamentos.
+  </mat-card-subtitle>
+  <mat-divider inset></mat-divider>
+  <mat-card-content>
+    <div class="container" *ngIf="!edicao">
+      <br>
+      <div class="linha-funcao">
+        <h1>Lista de Agendamentos</h1>
+        <button mat-raised-button color="primary"
+          (click)="entrarModoEdicao()">Adicionar agendamento</button>
+      </div>
+      <div *ngIf="agendamentos.length == 0">
+        <span>Não há nenhum agendamento cadastrado, adicione um.</span>
+      </div>
+      <table mat-table [dataSource]="agendamentos" class="tabela mat-elevation-z8" *ngIf="agendamentos.length > 0">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="cliente">
+          <th mat-header-cell *matHeaderCellDef> Cliente </th>
+          <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
+        </ng-container>
+        <ng-container matColumnDef="dataAgendamento">
+          <th mat-header-cell *matHeaderCellDef> Data </th>
+          <td mat-cell *matCellDef="let element"> {{element.dataAgendamento}} </td>
+        </ng-container>
+        <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef> Ações </th>
+          <td mat-cell *matCellDef="let element">  </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+        <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
+      </table>
+    </div>
+
+    <div class="container" *ngIf="edicao">
+      <form [formGroup]="formulario" (ngSubmit)="salvar()">
+        <input type="hidden" formControlName="id">
+
+        <mat-form-field appearance="fill"  class="input">
+          <mat-label>Nome</mat-label>
+          <input type="text" matInput [formControlName]="'cliente'"
+                 placeholder="Ex. Ana Júlia.">
+        </mat-form-field>
+
+        <br>
+        <mat-form-field appearance="fill"  class="input">
+          <mat-label>Contato</mat-label>
+          <input type="text" matInput [formControlName]="'contato'"
+                 placeholder="Ex. 12 99999-9999">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill"  class="input">
+          <mat-label>Data do agendamento</mat-label>
+          <input type="text" matInput [formControlName]="'dataAgendamento'"
+                 placeholder="Ex. 27/08/2021">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>Serviço</mat-label>
+          <mat-select [formControlName]="'servico'">
+            <mat-option *ngFor="let servico of servicos" [value]="servico.id">
+              {{servico.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill"  class="input">
+          <mat-label>Preço do serviço</mat-label>
+          <input type="text" matInput [formControlName]="'precoServico'"
+                 placeholder="Ex. 109,99">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill"  class="input">
+          <mat-label>Desconto</mat-label>
+          <input type="text" matInput [formControlName]="'desconto'"
+                 placeholder="Ex. 8,50">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill"  class="input">
+          <mat-label>Preço total</mat-label>
+          <input type="text" matInput [formControlName]="'precoTotal'"
+                 placeholder="Ex. 101,49">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill"  class="input">
+          <mat-label>Valor pago</mat-label>
+          <input type="text" matInput [formControlName]="'valorPago'"
+                  placeholder="Ex. 101,49">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>O atendimento foi pago?</mat-label>
+          <mat-select [formControlName]="'foiPago'">
+            <mat-option [value]="true">
+              Sim
+            </mat-option>
+            <mat-option [value]="false">
+              Não
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>O Agendamento foi confirmado?</mat-label>
+          <mat-select [formControlName]="'confirmado'">
+            <mat-option [value]="true">
+              Sim
+            </mat-option>
+            <mat-option [value]="false">
+              Não
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>O Agendamento foi realizado?</mat-label>
+          <mat-select [formControlName]="'foi'">
+            <mat-option [value]="true">
+              Sim
+            </mat-option>
+            <mat-option [value]="false">
+              Não
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <br>
+        <div class="direita">
+          <button mat-raised-button color="accent" class="botao" (click)="cancelar()">Cancelar</button>
+          <button mat-raised-button type="submit" color="primary" class="botao">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

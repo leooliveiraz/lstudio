@@ -1,0 +1,14 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card-opcao{
+  min-width: 20rem; margin: 1em;
+}
+
+.botao{
+  width: 100%;
+}
