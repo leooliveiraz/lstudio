@@ -19,6 +19,10 @@ public class Agendamento {
     private boolean foiPago = false;
     private boolean confirmado = false;
     private boolean foi;
+    private boolean cancelado = false;
+
+    @Enumerated(EnumType.STRING)
+    private FormaPagamento formaPagamento;
 
     @ManyToOne
     @JoinColumn(name = "servico")
