@@ -1,7 +1,31 @@
 <mat-toolbar color="primary">
   <span routerLink="/" >LStudio</span>
   <span class="spacer"></span>
-  <button mat-mini-fab color="warn" (click)="logout()" *ngIf="logado" >
-    <mat-icon aria-label="Botão de Logout">logout</mat-icon>
+  <button mat-flat-button *ngIf="logado"
+    [matMenuTriggerFor]="menu"
+    aria-label="Example icon-button with a menu"
+    class="menu-flutuante "
+    color="primary"
+  >
+    <mat-icon>menu</mat-icon>
   </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/">
+      <mat-icon>home</mat-icon>
+      <span>Inicio</span>
+    </button>
+    <button mat-menu-item routerLink="/agendamento">
+      <mat-icon>calendar_today</mat-icon>
+      <span>Agendamentos</span>
+    </button>
+    <button mat-menu-item routerLink="/servico">
+      <mat-icon>business_center</mat-icon>
+      <span>Serviços</span>
+    </button>
+    <button mat-menu-item (click)="logout()" *ngIf="logado">
+      <mat-icon aria-label="Botão de Logout">logout</mat-icon>
+      <span>Sair</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>

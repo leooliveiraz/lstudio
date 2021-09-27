@@ -35,7 +35,7 @@
           <td mat-cell *matCellDef="let element">  </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+        <tr mat-header-row *matHeaderRowDef="colunas; sticky:true "></tr>
         <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
       </table>
     </div>
@@ -72,25 +72,25 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill"  class="input">
+        <mat-form-field  appearance="fill"  class="input">
           <mat-label>Preço do serviço</mat-label>
           <input type="text" matInput [formControlName]="'precoServico'"
                  placeholder="Ex. 109,99">
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill"  class="input">
+        <mat-form-field  appearance="fill"  class="input">
           <mat-label>Desconto</mat-label>
           <input type="text" matInput [formControlName]="'desconto'"
                  placeholder="Ex. 8,50">
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill"  class="input">
+        <mat-form-field  appearance="fill"  class="input">
           <mat-label>Preço total</mat-label>
           <input type="text" matInput [formControlName]="'precoTotal'"
                  placeholder="Ex. 101,49">
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill"  class="input">
+        <mat-form-field  appearance="fill"  class="input">
           <mat-label>Valor pago</mat-label>
           <input type="text" matInput [formControlName]="'valorPago'"
                   placeholder="Ex. 101,49">

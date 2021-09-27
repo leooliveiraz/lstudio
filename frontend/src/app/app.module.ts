@@ -23,7 +23,14 @@ import { InicialComponent } from './inicial/inicial.component';
 import { AgendamentoComponent } from './agendamento/agendamento.component';
 import { ServicoComponent } from './servico/servico.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './services/auth/token-interceptor.service';
+import { Decimal2Directive } from './diretiva/decimal2.directive';
 
+import { LOCALE_ID } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -32,7 +39,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     InicialComponent,
     AgendamentoComponent,
-    ServicoComponent
+    ServicoComponent,
+    Decimal2Directive
   ],
   imports: [
   BrowserModule,
@@ -49,9 +57,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     AppRoutingModule,
     SocialLoginModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: "pt"
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
