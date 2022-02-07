@@ -1,0 +1,264 @@
+<mat-card>
+  <mat-card-title>
+    Análise de informações
+  </mat-card-title>
+  <mat-card-subtitle>
+    Analise suas informações da melhor forma.
+  </mat-card-subtitle>
+  <mat-divider inset></mat-divider>
+  <mat-card-content>
+    <div class="container">
+      <br>
+      <div class="linha-funcao">
+        <h1>Análise</h1>
+      </div>
+      <p>
+        Informe as datas que deseja, e clique no botão para gerar o relatório.
+      </p>
+      <form [formGroup]="formulario" (ngSubmit)="executar()">
+        <mat-form-field appearance="fill"  class="input">
+          <mat-label>Data Inicial</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dataInicial"
+          placeholder="Ex. 01/12/2021 16:20" >
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker type="date" #picker ></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill"  class="input">
+          <mat-label>Data Final</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="dataFinal"
+          placeholder="Ex. 01/12/2021 16:20" >
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker type="date" #picker2 ></mat-datepicker>
+        </mat-form-field>
+        <button mat-fab class="botao-flutuante" color="primary" type="submit">
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+
+      <mat-divider></mat-divider>
+      <div class="container-tabela">
+        <h2>Tabelas:</h2>
+        <div class="lista-chips">
+          <mat-chip-list >
+            <mat-chip selected [color]="'primary'">
+              Tabela de agendamentos
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <table mat-table [dataSource]="filtrados" class="tabela mat-elevation-z8" *ngIf="filtrados.length > 0">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cliente">
+            <th mat-header-cell *matHeaderCellDef> Cliente </th>
+            <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
+          </ng-container>
+          <ng-container matColumnDef="dataAgendamento">
+            <th mat-header-cell *matHeaderCellDef> Data </th>
+            <td mat-cell *matCellDef="let element"> {{element.dataAgendamento |  date:'dd/MM/yyyy HH:mm' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="servico">
+            <th mat-header-cell *matHeaderCellDef> Serviço </th>
+            <td mat-cell *matCellDef="let element"> {{element.servico  }} </td>
+          </ng-container>
+          <ng-container matColumnDef="valorServico">
+            <th mat-header-cell *matHeaderCellDef> Valor do Serviço</th>
+            <td mat-cell *matCellDef="let element"> {{element.precoTotal | currency : 'BRL' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="desconto">
+            <th mat-header-cell *matHeaderCellDef> Desconto</th>
+            <td mat-cell *matCellDef="let element"> {{element.desconto | currency : 'BRL'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="valorTotal">
+            <th mat-header-cell *matHeaderCellDef> Valor Recebido</th>
+            <td mat-cell *matCellDef="let element"> {{element.valorPago | currency : 'BRL' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="formaPagamento">
+            <th mat-header-cell *matHeaderCellDef> Forma Pagamento</th>
+            <td mat-cell *matCellDef="let element"> {{element.formaPagamento }} </td>
+          </ng-container>
+          <ng-container matColumnDef="confirmado">
+            <th mat-header-cell *matHeaderCellDef> Confirmado</th>
+            <td mat-cell *matCellDef="let element"> {{element.confirmado ? 'Sim' : 'Não'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="pago">
+            <th mat-header-cell *matHeaderCellDef> Pago</th>
+            <td mat-cell *matCellDef="let element"> {{element.pago  ? 'Sim' : 'Não' }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="colunas; sticky:true " style="white-space: nowrap;"></tr>
+          <tr mat-row *matRowDef="let row; columns: colunas;" style="white-space: nowrap;"></tr>
+        </table>
+      </div>
+
+      <div class="container-tabelas">
+        <div class="tabela-responsiva">
+          <div class="lista-chips">
+            <mat-chip-list >
+              <mat-chip selected [color]="'primary'">
+                Recebido por formas de pagamento
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <table mat-table [dataSource]="porTipo"
+            class="tabela mat-elevation-z8"
+            *ngIf="porTipo.length > 0">
+            <ng-container matColumnDef="tipo">
+              <th mat-header-cell *matHeaderCellDef> Forma de Pagamento </th>
+              <td mat-cell *matCellDef="let element"> {{element.formaPagamento}} </td>
+            </ng-container>
+            <ng-container matColumnDef="valorTotal">
+              <th mat-header-cell *matHeaderCellDef> Valor Total </th>
+              <td mat-cell *matCellDef="let element"> {{element.valorPago | currency : 'BRL' }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="colunasTipo; sticky:true " style="white-space: nowrap;"></tr>
+            <tr mat-row *matRowDef="let row; columns: colunasTipo;" style="white-space: nowrap;"></tr>
+          </table>
+        </div>
+
+        <div class="tabela-responsiva">
+          <div class="lista-chips">
+            <mat-chip-list >
+              <mat-chip selected [color]="'primary'">
+                Recebido por serviço
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <table mat-table [dataSource]="porServico"
+            class="tabela mat-elevation-z8"
+            *ngIf="porServico.length > 0">
+            <ng-container matColumnDef="servico">
+              <th mat-header-cell *matHeaderCellDef> Serviço </th>
+              <td mat-cell *matCellDef="let element"> {{element.servico}} </td>
+            </ng-container>
+            <ng-container matColumnDef="valorTotal">
+              <th mat-header-cell *matHeaderCellDef> Valor Total </th>
+              <td mat-cell *matCellDef="let element"> {{element.valorPago | currency : 'BRL' }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="colunasServico; sticky:true " style="white-space: nowrap;"></tr>
+            <tr mat-row *matRowDef="let row; columns: colunasServico;" style="white-space: nowrap;"></tr>
+          </table>
+        </div>
+      </div>
+
+
+      <mat-divider></mat-divider>
+
+      <div class="dados-agrupados">
+        <h2>
+          Dados Agrupados:
+        </h2>
+        <div class="lista-chips">
+          <mat-chip-list >
+            <mat-chip selected [color]="'primary'">
+              Agendamentos
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="container-cards">
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Qtd. Agendamentos
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{qtdAgendamentos}}</h1>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Qtd. Confirmados
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{qtdConfirmados}}</h1>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Qtd. Cancelados
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{qtdCancelados}}</h1>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Qtd. Comparecimentos
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{qtdFoi}}</h1>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Qtd. Faltas
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{qtdFaltas}}</h1>
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+
+        <div class="lista-chips">
+          <mat-chip-list >
+            <mat-chip selected [color]="'primary'">
+              Financeiro
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="container-cards">
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Valor Total Estimado
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{valorTotalEstimado | currency : 'BRL' }}</h1>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Desconto Total
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{descontoTotal | currency : 'BRL' }}</h1>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Valor Recebido
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{valorPagoTotal | currency : 'BRL' }}</h1>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="card-opcao">
+            <mat-card-title>
+              Diferença estimado x recebido
+            </mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="conteudo">
+              <h1>{{diferencaTotal | currency : 'BRL' }}</h1>
+            </mat-card-content>
+          </mat-card>
+
+
+        </div>
+      </div>
+
+
+    </div>
+  </mat-card-content>
+</mat-card>

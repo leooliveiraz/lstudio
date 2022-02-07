@@ -29,6 +29,8 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/@sweetalert2/theme-material-ui/material-ui.scss",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@matheo/datepicker/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []

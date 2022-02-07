@@ -13,8 +13,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-
-
+import { MatDatepickerIntl, MatDatepickerModule } from '@matheo/datepicker';
+import { MatLuxonDateModule } from '@matheo/datepicker/luxon'
+import {MatChipsModule} from '@angular/material/chips';
 import { AppComponent } from './app.component';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import { LoginComponent } from './login/login.component';
@@ -30,7 +31,29 @@ import { Decimal2Directive } from './diretiva/decimal2.directive';
 import { LOCALE_ID } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+
 registerLocaleData(localePt, 'pt');
+import { PtDatetimeIntl } from './services/pt-datetime.intl';
+import { AnaliseComponent } from './analise/analise.component';
+
+export const MY_FORMATS= {
+  parse: {
+		datetime: 'DD-MM-YYYY HH:mm',
+		date: 'DD-MM-YYYY',
+		time: 'HH:mm'
+	},
+	display: {
+		datetime: 'DD/MM/YYYY HH:mm',
+		date: 'DD/MM/YYYY',
+		time: 'HH:mm',
+		monthDayLabel: 'DD/MM',
+		monthDayA11yLabel: 'DD/MM/YYYY',
+		monthYearLabel: 'MMMM',
+		monthYearA11yLabel: 'DD/MM/YYYY',
+		dateA11yLabel: 'DD/MM/YYYY',
+		timeLabel: 'HH:mm',
+	},
+};
 
 @NgModule({
   declarations: [
@@ -40,10 +63,11 @@ registerLocaleData(localePt, 'pt');
     InicialComponent,
     AgendamentoComponent,
     ServicoComponent,
-    Decimal2Directive
+    Decimal2Directive,
+    AnaliseComponent
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
@@ -55,17 +79,22 @@ registerLocaleData(localePt, 'pt');
     MatTableModule,
     MatInputModule,
     MatSelectModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatLuxonDateModule,
     AppRoutingModule,
     SocialLoginModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [
-    {
-      provide: LOCALE_ID,
-      useValue: "pt"
-    },
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: "pt-BR" },
+    // {
+      // provide: MAT_DATE_FORMATS,
+      // useValue: {MY_FORMATS}
+    // },
+    { provide: MatDatepickerIntl, useClass: PtDatetimeIntl },
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

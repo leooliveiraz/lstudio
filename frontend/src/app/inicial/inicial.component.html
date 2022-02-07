@@ -15,32 +15,66 @@
         <mat-divider inset></mat-divider>
         <mat-card-content>
           <br>
+          <h1>{{cliente}}</h1>
           <p>
-            <strong>Ana Júlia</strong><br>
-            24/09/2021 às 14:00
+            {{dataHora |  date:'dd/MM/yyyy HH:mm'}}
           </p>
         </mat-card-content>
       </mat-card>
 
       <mat-card class="card-opcao">
         <mat-card-title>
-          Qtd. agendamentos hoje
+          Agendamentos hoje
         </mat-card-title>
         <mat-divider inset></mat-divider>
         <mat-card-content>
           <br>
-          <h2>5</h2>
+          <h1>{{agendados}}</h1>
         </mat-card-content>
       </mat-card>
 
       <mat-card class="card-opcao">
         <mat-card-title>
-          Qtd. atendidos hoje
+          Atendidos hoje
         </mat-card-title>
         <mat-divider inset></mat-divider>
         <mat-card-content>
           <br>
-          <h2>2</h2>
+          <h1>{{atendidos}}</h1>
+        </mat-card-content>
+      </mat-card>
+
+
+      <mat-card class="card-opcao">
+        <mat-card-title>
+          Cancelados hoje
+        </mat-card-title>
+        <mat-divider inset></mat-divider>
+        <mat-card-content>
+          <br>
+          <h1>{{cancelados}}</h1>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="card-opcao">
+        <mat-card-title>
+          Confirmação pendente hoje
+        </mat-card-title>
+        <mat-divider inset></mat-divider>
+        <mat-card-content>
+          <br>
+          <h1>{{pendentes}}</h1>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="card-opcao">
+        <mat-card-title>
+          Faltas
+        </mat-card-title>
+        <mat-divider inset></mat-divider>
+        <mat-card-content>
+          <br>
+          <h1>{{falta}}</h1>
         </mat-card-content>
       </mat-card>
 

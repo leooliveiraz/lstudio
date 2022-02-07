@@ -1,6 +1,16 @@
+.container-tabela {
+  min-width: 95%;
+  max-width: 100%;
+  overflow: auto;
+}
 .tabela {
   width: 100%;
+  word-wrap:break-word;
 }
+.tabela td{
+  margin:1em
+}
+
 .container{
   margin-top: 1em;
 }
@@ -25,3 +35,4 @@ form{
 .botao{
   margin-left: 1em;
 }
+

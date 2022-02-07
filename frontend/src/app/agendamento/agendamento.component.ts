@@ -1,42 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ServicoService } from './../services/servico.service';
+import { AgendamentoService } from './../services/agendamento.service';
+import Swal from 'sweetalert2';
+import { DateTime } from 'luxon';
+
+
+
 
 @Component({
   selector: 'app-agendamento',
   templateUrl: './agendamento.component.html',
-  styleUrls: ['./agendamento.component.css']
+  styleUrls: ['./agendamento.component.css'],
 })
 export class AgendamentoComponent implements OnInit {
 
-  agendamentos = [{id:1, cliente:'Jaine', dataAgendamento: new Date()},
-              {id:2, cliente:'Bruna' , dataAgendamento: new Date()},
-              {id:3, cliente:'Carolina' , dataAgendamento: new Date()},
-              {id:4, cliente:'Steffany', dataAgendamento: new Date()},
-              {id:5, cliente:'Julias' , dataAgendamento: new Date()},
-              {id:6, cliente:'Elaie' , dataAgendamento: new Date()},
-              {id:7, cliente:'Jessica', dataAgendamento: new Date()},
-              {id:8, cliente:'Paula' , dataAgendamento: new Date()},
-              {id:9, cliente:'Clara' , dataAgendamento: new Date()},
-              {id:10, cliente:'Ana', dataAgendamento: new Date()},
-              {id:11, cliente:'Cristina' , dataAgendamento: new Date()},
-              {id:12, cliente:'Ketelin' , dataAgendamento: new Date()},
-              {id:13, cliente:'Denise', dataAgendamento: new Date()},
-              {id:14, cliente:'Fernanda' , dataAgendamento: new Date()},
-              {id:15, cliente:'Gabriela' , dataAgendamento: new Date()},
-              {id:16, cliente:'Heloisa', dataAgendamento: new Date()},
-              {id:17, cliente:'Ingrid' , dataAgendamento: new Date()},
-              {id:16, cliente:'Lana' , dataAgendamento: new Date()},];
+  agendamentos = [];
+  agendamentosFiltrados = [];
 
-  servicos = [{id:1, nome:'Desenvolvimento de App', preco:1500.99},
-              {id:2, nome:'Desenvolvimento de Sites', preco:400.99},
-              {id:3, nome:'Desenvolvimento de Sistemas', preco:1000.99}];
+  servicos: any = [];
 
-  colunas = ['id','cliente','dataAgendamento','acoes'];
+  colunas = ['id','cliente','dataAgendamento','servico','valorTotal','confirmado','pago','acoes'];
   edicao = false;
   formulario ;
 
   constructor(
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private servicoService: ServicoService,
+    private agendamentoService: AgendamentoService) {
       this.formulario = this.formBuilder.group({
         id: [],
         cliente: ['', [Validators.required] ],
@@ -45,17 +36,30 @@ export class AgendamentoComponent implements OnInit {
         precoServico: ['', [Validators.required] ],
         desconto: ['', ],
         precoTotal: ['', [Validators.required] ],
-        valorPago: ['', [Validators.required] ],
+        valorPago: ['00,00', [Validators.required] ],
         foiPago: [false, [Validators.required] ],
         confirmado: [false, [Validators.required] ],
         foi: [false, [Validators.required] ],
-        servico: [false, [Validators.required] ],
+        idServico: [false, [Validators.required] ],
+        formaPagamento: ['DINHEIRO', [Validators.required] ],
 
       })
     }
 
   ngOnInit(): void {
+    this.carregarServicos();
+    this.carregarAgendamentos()
+  }
 
+  carregarServicos() {
+    this.servicoService.listar().subscribe( (res:any) =>{
+      this.servicos = res;
+    })
+  }
+  carregarAgendamentos() {
+    this.agendamentoService.listar().subscribe( (res:any) =>{
+      this.agendamentos = res;
+    })
   }
 
   entrarModoEdicao(){
@@ -63,10 +67,108 @@ export class AgendamentoComponent implements OnInit {
   }
 
   salvar(){
-    this.edicao = false;
+
+    if(this.formulario.valid){
+      let objeto = this.formulario.value;
+      objeto.precoServico = parseFloat(`${objeto.precoServico}`.replace(',','.'));
+      objeto.desconto = parseFloat(`${objeto.desconto}`.replace(',','.'));
+      objeto.precoTotal = parseFloat(`${objeto.precoTotal}`.replace(',','.'));
+      objeto.valorPago = parseFloat(`${objeto.valorPago}`.replace(',','.'));
+      objeto.dataAgendamento = objeto.dataAgendamento.toJSDate();
+      if(!objeto.id){
+        this.agendamentoService.salvar(objeto).subscribe(res => {
+          this.carregarAgendamentos();
+          this.resetarFormulario()
+          this.edicao = false;
+        })
+      } else {
+        this.agendamentoService.editar(objeto).subscribe(res => {
+          this.carregarAgendamentos();
+          this.resetarFormulario()
+          this.edicao = false;
+        })
+      }
+    }
   }
   cancelar(){
     this.edicao = false;
+    this.resetarFormulario()
   }
+
+  mudouServico(){
+    let servico = this.servicos.filter((serv: any) => serv.id == this.formulario.controls.idServico.value)[0]
+    this.formulario.controls.precoServico.setValue(`${servico.preco}`.replace('.',','))
+  }
+  mudouPreco(){
+    let precoServico = parseFloat(this.formulario.controls.precoServico.value.replace(',','.'))
+    let desconto = parseFloat(this.formulario.controls.desconto.value.replace(',','.'))
+
+    desconto = isNaN(desconto) ? 0 : desconto;
+    let valor = precoServico - desconto;
+
+    this.formulario.controls.precoTotal.setValue(isNaN(valor) ? '00,00' : `${precoServico - desconto}`.replace('.',','))
+  }
+
+  editar(id:any){
+    this.agendamentoService.encontrar(id).subscribe((res:any) =>{
+      this.formulario = this.formBuilder.group({
+        id: [res.id],
+        cliente: [res.cliente, [Validators.required] ],
+        contato: [res.contato, [Validators.required] ],
+        dataAgendamento: [ DateTime.fromISO(res.dataAgendamento) , [Validators.required] ],
+        precoServico: [`${res.precoServico}`.replace('.',','), [Validators.required] ],
+        desconto: [res.desconto ? `${res.desconto}`.replace('.',','): '' ],
+        precoTotal: [`${res.precoTotal}`.replace('.',','), [Validators.required] ],
+        valorPago: [`${res.valorPago}`.replace('.',','), [Validators.required] ],
+        foiPago: [res.foiPago, [Validators.required] ],
+        confirmado: [res.confirmado, [Validators.required] ],
+        foi: [res.foi, [Validators.required] ],
+        idServico: [res.idServico, [Validators.required] ],
+        formaPagamento: [res.formaPagamento, [Validators.required] ],
+      })
+      this.entrarModoEdicao();
+    })
+  }
+
+  excluir(id:any){
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: 'Ao excluir esse agendamento, ele será permanentemente apagado do banco de dados.',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Sim',
+      denyButtonText: `Não`,
+    }).then( res => {
+      if(res){
+        if(res.isConfirmed){
+          this.agendamentoService.deletar(id).subscribe(res => {
+            this.carregarAgendamentos();
+          });
+        }
+      }
+    })
+  }
+
+  resetarFormulario(){
+    this.formulario = this.formBuilder.group({
+      id: [],
+      cliente: ['', [Validators.required] ],
+      contato: ['', [Validators.required] ],
+      dataAgendamento: ['', [Validators.required] ],
+      precoServico: ['', [Validators.required] ],
+      desconto: ['', ],
+      precoTotal: ['', [Validators.required] ],
+      valorPago: ['00,00', [Validators.required] ],
+      foiPago: [false, [Validators.required] ],
+      confirmado: [false, [Validators.required] ],
+      foi: [false, [Validators.required] ],
+      idServico: [false, [Validators.required] ],
+      formaPagamento: ['DINHEIRO', [Validators.required] ],
+
+    })
+  }
+
+
+
 
 }

@@ -1,0 +1,87 @@
+td{
+  padding-right: 1em;
+}
+
+.container-tabelas{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.tabela-responsiva{
+  width: 49%;
+}
+
+.lista-chips{
+  margin-bottom: 1em;
+}
+
+.container-tabela {
+  min-width: 95%;
+  max-width: 100%;
+  overflow: auto;
+  padding-top: 2em;
+}
+
+.dados-agrupados {
+  padding-top: 2em;
+}
+
+.tabela {
+  width: 100%;
+  word-wrap:break-word;
+}
+
+.container-cards{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+.conteudo{
+  padding-top: 2em;
+  text-align: right;
+}
+.input{
+  margin-right: 1em;
+}
+
+.botao-flutuante{
+  position: relative;
+  top: -.5em;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .container-cards{
+    width: 100%;
+  }
+
+  .card-opcao{
+    width: 100%;
+    margin: .5em;
+  }
+
+  .container-tabelas{
+    flex-direction: column;
+  }
+
+  .tabela-responsiva{
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .input{
+    width: 100%;
+  }
+  .botao-flutuante{
+    position: relative;
+    right: 21em;
+  }
+
+}
