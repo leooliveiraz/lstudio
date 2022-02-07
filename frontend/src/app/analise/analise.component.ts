@@ -80,7 +80,6 @@ export class AnaliseComponent implements OnInit {
       this.diferencaTotal = this.valorTotalEstimado - this.valorPagoTotal;
 
       this.porTipo = [];
-      console.log(this.filtrados)
       this.filtrados.forEach( (f: any) => {
         let indice = this.porTipo.findIndex((obj:any) => obj.formaPagamento === f.formaPagamento);
         if(indice === -1) {
