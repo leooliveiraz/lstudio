@@ -1,1 +1,1 @@
-git subtree push --prefix <subfolder> origin <branch>
+git subtree push --prefix backend origin backend
