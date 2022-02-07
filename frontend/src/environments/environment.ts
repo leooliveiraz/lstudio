@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:8080/'
+  url: 'http://localhost:8080/',
+  gProvider: '1013535665921-ms4vl6oinfjtdguqjmcvv4cdpp52b9dr.apps.googleusercontent.com'
 };
 
 /*

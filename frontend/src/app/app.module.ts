@@ -27,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/auth/token-interceptor.service';
 import { Decimal2Directive } from './diretiva/decimal2.directive';
+import { environment } from 'src/environments/environment';
 
 import { LOCALE_ID } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
@@ -67,7 +68,7 @@ export const MY_FORMATS= {
     AnaliseComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
@@ -103,7 +104,7 @@ export const MY_FORMATS= {
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '1013535665921-ms4vl6oinfjtdguqjmcvv4cdpp52b9dr.apps.googleusercontent.com'
+              environment.gProvider
             )
           }
         ]
