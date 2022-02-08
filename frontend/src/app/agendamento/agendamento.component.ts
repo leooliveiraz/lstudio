@@ -33,14 +33,14 @@ export class AgendamentoComponent implements OnInit {
         cliente: ['', [Validators.required] ],
         contato: ['', [Validators.required] ],
         dataAgendamento: ['', [Validators.required] ],
-        precoServico: ['', [Validators.required] ],
-        desconto: ['', ],
-        precoTotal: ['', [Validators.required] ],
+        precoServico: ['00,00', [Validators.required] ],
+        desconto: ['00,00', ],
+        precoTotal: ['00,00', [Validators.required] ],
         valorPago: ['00,00', [Validators.required] ],
         foiPago: [false, [Validators.required] ],
         confirmado: [false, [Validators.required] ],
         foi: [false, [Validators.required] ],
-        idServico: [false, [Validators.required] ],
+        idServico: [null, ],
         formaPagamento: ['DINHEIRO', [Validators.required] ],
 
       })

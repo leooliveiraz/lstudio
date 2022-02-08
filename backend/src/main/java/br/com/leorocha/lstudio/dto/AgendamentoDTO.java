@@ -43,8 +43,10 @@ public class AgendamentoDTO {
         this.foi = agendamento.isFoi();
         this.cancelado = agendamento.isCancelado();
         this.formaPagamento = agendamento.getFormaPagamento();
-        this.idServico = agendamento.getServico().getId();
-        this.servico = agendamento.getServico().getNome();
+        if( agendamento.getServico() != null){
+            this.idServico = agendamento.getServico().getId();
+            this.servico = agendamento.getServico().getNome();
+        }
         this.dataAgendamento = agendamento.getDataAgendamento().minusHours(3);
     }
 

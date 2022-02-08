@@ -96,6 +96,7 @@
         <mat-form-field appearance="fill" class="input">
           <mat-label>Serviço</mat-label>
           <mat-select [formControlName]="'idServico'" (selectionChange)="mudouServico()">
+            <mat-option  [value]="null">Selecione</mat-option>
             <mat-option *ngFor="let servico of servicos" [value]="servico.id">
               {{servico.nome}}
             </mat-option>
