@@ -36,6 +36,7 @@ import { registerLocaleData } from '@angular/common';
 registerLocaleData(localePt, 'pt');
 import { PtDatetimeIntl } from './services/pt-datetime.intl';
 import { AnaliseComponent } from './analise/analise.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export const MY_FORMATS= {
   parse: {
@@ -86,7 +87,13 @@ export const MY_FORMATS= {
     AppRoutingModule,
     SocialLoginModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "pt-BR" },
