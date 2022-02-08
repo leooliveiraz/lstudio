@@ -62,8 +62,10 @@ public class AgendamentoController {
         Usuario usuario = usuarioService.buscarPorSub(userDTO.getSub());
 
         Agendamento agendamento = new Agendamento(dto);
-        Servico servico = this.servicoRepo.findById(dto.getIdServico()).get();
-        if(!servico.getUsuario().getId().equals(usuario.getId())){
+        Servico servico = dto.getIdServico() != null ?
+                this.servicoRepo.findById(dto.getIdServico()).get() : null;
+
+        if(servico != null && !servico.getUsuario().getId().equals(usuario.getId())){
             throw new AuthenticationException("Você não pode editar esse registro");
         }
 
