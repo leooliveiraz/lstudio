@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1644320248037,
+  "timestamp": 1644323097238,
   "index": "https://leooliveiraz.github.io/lstudio/index.html",
   "assetGroups": [
     {
@@ -36,21 +36,23 @@
         "https://leooliveiraz.github.io/lstudio/assets/icons/icon-384x384.png",
         "https://leooliveiraz.github.io/lstudio/assets/icons/icon-512x512.png",
         "https://leooliveiraz.github.io/lstudio/assets/icons/icon-72x72.png",
-        "https://leooliveiraz.github.io/lstudio/assets/icons/icon-96x96.png"
+        "https://leooliveiraz.github.io/lstudio/assets/icons/icon-96x96.png",
+        "https://leooliveiraz.github.io/lstudio/assets/icons/logo.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
-    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
-    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
-    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
-    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
-    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
-    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
-    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-128x128.png": "edcefe330684251934b29f7ae11b1c43942343c3",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-144x144.png": "d1cdf532b53beea55baba87a8f9fbd5ac6f522c8",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-152x152.png": "679cec22dc18da04933d86b9e1949e05231098f7",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-192x192.png": "bbc505e117fdf54dbae4bc3c942aa6db249080dc",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-384x384.png": "028aac4d079eeb87a9c9c6088f2f048e808a2755",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-512x512.png": "469d3ccdb98df31cace6f034f771dc43ba324d5f",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-72x72.png": "fb7dfcee27729256e167d96fb21e94abae5ffaa9",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/icon-96x96.png": "9f42f75647ad036d2ee3b74e8da491cd294a2cdc",
+    "https://leooliveiraz.github.io/lstudio/assets/icons/logo.png": "586a6d7327ceabc1a96561d2aee8d955366976ad",
     "https://leooliveiraz.github.io/lstudio/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
     "https://leooliveiraz.github.io/lstudio/index.html": "554d792c41298d315b97bc1861a049d6c23b4575",
     "https://leooliveiraz.github.io/lstudio/main.d664a49aef9468587e5a.js": "594784b0e438cd16a1621e92482c10ec68abf6e5",
